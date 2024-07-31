@@ -1,4 +1,4 @@
-## HackSL500, my Lenova SL500 setup
+## HackSL500, my Lenova SL500 i3wm setup
 
 
 ### Programs
