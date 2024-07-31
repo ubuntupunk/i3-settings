@@ -1,5 +1,0 @@
-#!/bin/bash
-# Pre-exit script for i3
-
-killall exaile
-i3-msg '[class="^(?!I3-exit)"] kill'
