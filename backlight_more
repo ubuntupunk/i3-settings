@@ -1,0 +1,8 @@
+#!/bin/bash
+
+LEVEL=$(cat /sys/class/backlight/acpi_video0/actual_brightness)
+LEVEL_MAX=$(cat /sys/class/backlight/acpi_video0/max_brightness)
+
+if [ $LEVEL -lt $LEVEL_MAX ]; then
+	echo $LEVEL + 1 | bc | sudo /usr/bin/tee /sys/class/backlight/acpi_video0/brightness > /dev/null
+fi
