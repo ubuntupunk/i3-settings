@@ -18,7 +18,7 @@
 | icons          |                                     |
 | fonts          | [Hack Nerd Fonts](https://www.nerdfonts.com/)  |
 | cursor         |                                     |
-| music player   | moc, pmrp                           |
+| music player   | moc, [pmrp](https://github.com/hakerdefo/pmrp) |
 | video player   | mpv                                 |
 | screenshots    | flameshot                           |
 | text editor    | nvim, kakoune                       |
