@@ -15,9 +15,10 @@
 | image viewer   | feh                                 |
 | wallpapers     | nitrogen                            |
 | theme          |                                     |
-| icons          |                                     |
+| icons          |              |
 | fonts          | [Hack Nerd Fonts](https://www.nerdfonts.com/)  |
-| cursor         |                                     |
+| cursor         |              
+| directory ls   | [lsd](https://github.com/lsd-rs/lsd/releases)  |
 | music player   | moc, [pmrp](https://github.com/hakerdefo/pmrp) |
 | video player   | mpv                                 |
 | screenshots    | flameshot                           |
