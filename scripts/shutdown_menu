@@ -29,7 +29,7 @@
 #######################################################################
 
 # Use a custom lock script
-#LOCKSCRIPT="/home/afropunk/.config/i3/scripts/i3lock-extra -m pixelize"
+LOCKSCRIPT="/home/ubuntupunk/.config/i3/scripts/i3lock-extra -m pixelize"
 
 # Colors: FG (foreground), BG (background), HL (highlighted)
 FG_COLOR="#bbbbbb"
@@ -119,7 +119,7 @@ menu=(
   [Hibernate]="systemctl hibernate"
   [Suspend]="i3lock --raw=1920x1080:rgb -i ~/.config/i3/image.png  & systemctl suspend"
   [Halt]="systemctl halt"
-  [Lock]="/home/afropunk/.config/i3/scripts/i3lock.sh"
+  [Lock]="/home/ubuntupunk/.config/i3/scripts/i3lock.sh"
  #[Lock]="${LOCKSCRIPT:-i3lock --color=${BG_COLOR#"#800080"}}"
   [Logout]="i3-msg exit"
   [Cancel]=""
