@@ -242,41 +242,38 @@ bindsym $alt+Shift+0 move container to workspace number $ws10
 # APP FOCUS RULES|
 # ---------------+
 
-assign [class="^jetbrains$"] → 6
-for_window [class="^jetbrains$"] move container to window 6
+assign [class="(?i)code|vscode"] $ws5
+assign [class="(?i)jetbrains"] $ws6
 
-assign [class="eduke32"] → 7
-for_window [class="eduke32"] move container to workspace 7
+assign [class="(?i)libreoffice"] $ws4
+assign [class="(?i)libreoffice-startcenter"] $ws4
 
-for_window [class="LibreOffice"] move container to workspace 4
 assign [class="Pavucontrol"] → 4
 assign [class="Steam"] → 8
 
-assign [class="^Code$"] → 5
-for_window [class="^Code$"] move to container 5
+assign [class="(?i)firefox|firefox-esr|chromium|google-chrome|brave-browser"] $ws2
 
-assign [class="whatsdesk"] → 3
-for_window [class=i3-frame] tabbed
+assign [class="(?i)thunar|nautilus|files"] $ws3
+for_window [class="(?i)thunar|nautilus|files"] split toggle
 
-assign [class="(?i)Firefox"] $ws2
-assign [class="(?i)libreoffice-startcenter"] $ws4
-assign [class="(?i)thunar"] $ws3
-assign [class="(?i)nautilus"] $ws3
-assign [class="(?i)Clementine"] $ws4
-assign [class="(?i)vlc"] $ws4
-assign [class="(?i)Spotify"] $ws5
-assign [class="(?i)galculator"] $ws7
-assign [class="(?i)Visual$"] $ws4
-assign [class="(?i)gnote"] $ws8
-assign [class="(?i)jetbrains"] $ws6
+assign [class="(?i)vlc|mpv|celluloid"] $ws4
+assign [class="(?i)spotify"] $ws5
 
-for_window [class="Gimp"] move workspace $ws7
-for_window [title="GIMP Startup"] move workspace $ws7
+assign [class="(?i)gnome-calculator|galculator|qalculate"] $ws7
+
+assign [class="(?i)obsidian|notesnook|logseq|standard-notes"] $ws8
+
+assign [class="(?i)discord|element|slack|telegram|signal"] $ws9
+for_window [class="(?i)discord|element|slack"] floating disable
+
+assign [class="(?i)gimp|inkscape|krita|blender"] $ws7
+
+assign [class="(?i)bitwarden|keepassxc|1password"] $ws10
+
 for_window [title="Spotify"] move to workspace $ws5
 
-assign [class="Nautilus"] $ws3
 assign [class="Code"] $ws5
-assign [class="Pinta|krita"] $ws7
+assign [class="(?i)pinta|krita"] $ws7
 
 assign [class="(?i)discord|element|slack|telegram"] $ws9
 
