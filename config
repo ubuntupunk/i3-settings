@@ -7,7 +7,7 @@
 #-----------+
 
 set $alt Mod1
-set $ctrl Mod4
+set $mod Mod4
 set $term2 i3-sensible-terminal
 set $term ghostty
 set $term3 st
@@ -20,6 +20,10 @@ set $calculator gnome-calculator
 #DECORATION|
 #-----------+
 
+gaps inner 8
+gaps outer 4
+smart_gaps on
+
 font pango: Noto Sans Regular 10
 
 for_window [class="^.*"] border pixel 2
@@ -30,8 +34,12 @@ for_window [class=".*"] border pixel 0
 
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
 
 for_window [class="sakura"] border pixel 1
+
+for_window [class="Thunar|nautilus|Thunar"] split toggle
 
 #----------------+
 # WINDOW  COLORS |
@@ -47,12 +55,12 @@ set $urgent-bg-color     #fb2e01
 set_from_resource $fg i3wm.color7 #f0f0f0
 set_from_resource $bg i3wm.color2 #f0f0f0
 
-client.focused          $bg $bg $fg $bg $bg
-client.focused_inactive $bg $bg $fg $bg $bg
-client.unfocused        $bg $bg $fg $bg $bg
-client.urgent           $bg $bg $fg $bg $bg
-client.placeholder      $bg $bg $fg $bg $bg
-client.background       $bg
+client.focused          $bg-color-border $bg-color $text-color $bg-color-border $bg-color-border
+client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color $inactive-bg-color $inactive-bg-color
+client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color $inactive-bg-color $inactive-bg-color
+client.urgent           $urgent-bg-color $urgent-bg-color $text-color $urgent-bg-color $urgent-bg-color
+client.placeholder      $inactive-bg-color $inactive-bg-color $text-color $inactive-bg-color $inactive-bg-color
+client.background       $bg-color
 
 #apply wallpaper
 exec --no-startup-id sleep 1 && feh --bg-scale ~/Pictures/wallpapers/background.png
@@ -80,13 +88,13 @@ bindsym F1 exec --no-startup-id ~/.config/i3/scripts/keyhint-2
 bindsym $alt+Tab exec rofi -show window
 
 workspace_auto_back_and_forth yes
-bindsym $ctrl+z workspace back_and_forth
+bindsym $mod+z workspace back_and_forth
 
 bindsym $alt+Shift+c reload
 bindsym $alt+Shift+r restart
 bindsym $alt+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 bindsym $alt+Shift+s exec betterlockscreen --lock & systemctl suspend
-bindsym $ctrl+/ exec "i3-msg exit"
+bindsym $mod+Ctrl+/ exec "i3-msg exit"
 bindsym XF86PowerOff exec --no-startup-id prompt "Shutdown computer?" "$shutdown"
 
 #-------------+
@@ -96,7 +104,7 @@ bindsym XF86PowerOff exec --no-startup-id prompt "Shutdown computer?" "$shutdown
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -i ~/Pictures/wallpaper/default.png
 
 bindsym $alt+shift+x exec $lock
-bindsym $ctrl+l exec --no-startup-id $lock
+bindsym $mod+l exec --no-startup-id $lock
 
 #-------+
 #MONITOR|
@@ -114,10 +122,10 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-bindsym $ctrl+period exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym $ctrl+comma exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym $ctrl+m exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym $ctrl+Shift+m exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym $mod+period exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym $mod+comma exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym $mod+m exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym $mod+Shift+m exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh volume_up
 bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh volume_down
@@ -144,7 +152,7 @@ bindsym $alt+shift+enter exec $HOME/.config/i3/scripts/shutdown_menu
 #-----+
 
 bindsym $alt+Shift+q kill
-bindsym $ctrl+F4 kill
+bindsym $mod+F4 kill
 
 bindsym $alt+j focus left
 bindsym $alt+k focus down
@@ -170,9 +178,9 @@ bindsym $alt+h split h
 bindsym $alt+v split v
 bindsym $alt+f fullscreen toggle
 
-bindsym $ctrl+s layout stacking
-bindsym $ctrl+w layout tabbed
-bindsym $ctrl+e layout toggle split
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
 
 bindsym $alt+space floating toggle
 bindsym $alt+shift+space focus mode_toggle
@@ -194,19 +202,19 @@ floating_modifier $alt
 #WORKSPACES|
 #-----------+
 
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws1 "1: term"
+set $ws2 "2: web"
+set $ws3 "3: files"
+set $ws4 "4: media"
+set $ws5 "5: code"
+set $ws6 "6: dev"
+set $ws7 "7: gfx"
+set $ws8 "8: notes"
+set $ws9 "9: chat"
+set $ws10 "10: misc"
 
 assign [class="^URxvt$"] → 1
-assign [class="(Gnome-terminal$|^Terminal$|^kitty$|^alacritty$|^tmux$"] → 1
+assign [class="(Gnome-terminal$|^Terminal$|^kitty$|^alacritty$|^tmux$|^ghostty$"] → 1
 
 bindsym $alt+1 workspace number $ws1
 bindsym $alt+2 workspace number $ws2
@@ -252,7 +260,8 @@ for_window [class=i3-frame] tabbed
 
 assign [class="(?i)Firefox"] $ws2
 assign [class="(?i)libreoffice-startcenter"] $ws4
-assign [class="(?i)thunar"] $ws5
+assign [class="(?i)thunar"] $ws3
+assign [class="(?i)nautilus"] $ws3
 assign [class="(?i)Clementine"] $ws4
 assign [class="(?i)vlc"] $ws4
 assign [class="(?i)Spotify"] $ws5
@@ -268,6 +277,8 @@ for_window [title="Spotify"] move to workspace $ws5
 assign [class="Nautilus"] $ws3
 assign [class="Code"] $ws5
 assign [class="Pinta|krita"] $ws7
+
+assign [class="(?i)discord|element|slack|telegram"] $ws9
 
 #---------+
 #FUNCTIONS|
@@ -285,15 +296,15 @@ bindsym $alt+F10 exec --no-startup-id t$term -e ddgr
 bindsym $alt+F11 exec --no-startup-id convert $HOME/.config/i3/config config.txt | groff $HOME/.config/i3/config -T pdf | zathura -
 bindsym $alt+F12 exec --no-startup-id $lock
 
-bindsym $ctrl+F1 exec --no-startup-id $HOME/.config/rofi/bin/launcher_ribbon
-bindsym $ctrl+F2 exec --no-startup-id bolt --rofi-search
-bindsym $ctrl+F3 exec --no-startup-id $HOME/.config/rofi/bin/android_apps
-bindsym $ctrl+T exec rofi -modi TODO:$HOME/.config/i3/scripts/rofi-todo.sh -show TODO
+bindsym $mod+F1 exec --no-startup-id $HOME/.config/rofi/bin/launcher_ribbon
+bindsym $mod+F2 exec --no-startup-id bolt --rofi-search
+bindsym $mod+F3 exec --no-startup-id $HOME/.config/rofi/bin/android_apps
+bindsym $mod+T exec rofi -modi TODO:$HOME/.config/i3/scripts/rofi-todo.sh -show TODO
 
 set $RESSURECT $HOME/.config/i3/resurrect/
 
-bindsym $ctrl+F5 exec i3-resurrect save -d $RESSURECT
-bindsym $ctrl+F6 exec i3-resurrect restore -d $RESSURECT
+bindsym $mod+F5 exec i3-resurrect save -d $RESSURECT
+bindsym $mod+F6 exec i3-resurrect restore -d $RESSURECT
 
 #---------+
 #SHORTCUTS|
@@ -321,8 +332,8 @@ bar {
 exec_always --no-startup-id i3-auto-layout
 exec_always --no-startup-id picom -b
 
-bindsym $ctrl+space exec "rofi -show window"
-bindsym $ctrl+g [urgent=latest] focus
+bindsym $mod+space exec "rofi -show window"
+bindsym $mod+g [urgent=latest] focus
 
 exec_always --no-startup i3spin
 exec --no-startup-id ~/.config/i3/scripts/alternating_layouts.py
@@ -373,10 +384,10 @@ mode "save" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
     bindsym s mode "default"
-    bindsym $ctrl+Shift+s mode "default"
+    bindsym $mod+Shift+s mode "default"
 }
 
-bindsym $ctrl+Shift+x mode "save"
+bindsym $mod+Shift+x mode "save"
 
 mode "restore" {
     bindsym 1 exec $i3_resurrect restore -w 1
@@ -392,13 +403,13 @@ mode "restore" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
     bindsym n mode "default"
-    bindsym $ctrl+n mode "default"
+    bindsym $mod+n mode "default"
 }
 
-bindsym $ctrl+n mode "restore"
+bindsym $mod+n mode "restore"
 
-set $ctrle_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
-mode "$ctrle_system" {
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
     bindsym l exec --no-startup-id i3exit lock, mode "default"
     bindsym e exec --no-startup-id i3exit logout, mode "default"
     bindsym s exec --no-startup-id i3exit suspend, mode "default"
@@ -410,17 +421,17 @@ mode "$ctrle_system" {
     bindsym Escape mode "default"
 }
 
-bindsym $ctrl+Pause mode "$ctrle_system"
+bindsym $mod+Pause mode "$mode_system"
 
 #-----------------------------------------+
 # Application menu items handled by rofi: |
 #-----------------------------------------+
 
-bindsym $ctrl+d exec --no-startup-id rofi -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi
+bindsym $mod+d exec --no-startup-id rofi -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi
 bindsym F2 exec --no-startup-id rofi -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi
 
 bindsym $alt+t exec --no-startup-id rofi -show window -config ~/.config/rofi/rofidmenu.rasi
 bindsym F10 exec --no-startup-id rofi -show window -config ~/.config/rofi/rofidmenu.rasi
 
 exec --no-startup-id greenclip daemon>/dev/null
-bindsym $ctrl+c exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard -config ~/.config/rofi/rofidmenu.rasi
+bindsym $mod+c exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard -config ~/.config/rofi/rofidmenu.rasi
